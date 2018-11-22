@@ -1,12 +1,11 @@
 package com.schwartz.calculator.impl;
 
 import com.schwartz.calculator.AbstractCallableSchwartzCalculator;
-import com.schwartz.calculator.ISchwartzCalculator;
-import com.schwartz.model.SchwartzSimulatedData;
-import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.matlab.IMatlabObjectMapper;
 import com.schwartz.matlab.impl.MatlabProxyHandler;
 import com.schwartz.matlab.impl.SchwartzModelDataMapper;
+import com.schwartz.model.SchwartzModelParameters;
+import com.schwartz.model.SchwartzSimulatedData;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 import org.n52.matlab.control.MatlabConnectionException;
@@ -14,7 +13,6 @@ import org.n52.matlab.control.MatlabInvocationException;
 import org.n52.matlab.control.MatlabProxy;
 import org.n52.matlab.control.extensions.MatlabNumericArray;
 import org.n52.matlab.control.extensions.MatlabTypeConverter;
-
 /**
  * A {@link AbstractCallableSchwartzCalculator} implementation that handles the sample path generation.
  * 
@@ -59,10 +57,11 @@ public class SchwartzMatlabPathSimulator extends AbstractCallableSchwartzCalcula
             converter.setNumericArray("parray", new MatlabNumericArray(modelParameters.getMatlabFormat(), null));
             proxy.eval("carray = num2cell(parray);");
             proxy.eval("pstruct = paramstruct(carray{:});");
-            proxy.eval(new StringBuffer("[dates price cy ttm] = feval('gensynthdata',").append(initialSpot)
-                                                                                       .append(", ")
-                                                                                       .append(initialConvenienceYield)
-                                                                                       .append(",pstruct, synth_years, dt, ncontracts, false);").toString());
+            proxy.eval(new StringBuffer("[dates price cy ttm] = feval('gensynthdata',")
+                .append(initialSpot)
+                .append(", ")
+                .append(initialConvenienceYield)
+                                                                        .append(",pstruct, synth_years, dt, ncontracts, false);").toString());
             proxy.eval("data = feval('price2array', dates, price, cy, ttm,"  + simulateTermStructure +" );");
             
             return modelDataMapper.map(converter.getNumericArray("data").getRealArray2D());

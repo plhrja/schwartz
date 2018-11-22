@@ -27,7 +27,7 @@ public class MatlabProxyHandler extends AbstractMatlabProxyHandler {
     private static final Logger log = Logger.getLogger(MatlabProxyHandler.class.getName());
     
     private static final String MATLAB_STARTDIR = "/var/matlab_startdir/JavaInterface";
-    private static final boolean MATLAB_SPLASH_HIDDEN = true;
+    private static final boolean MATLAB_SPLASH_HIDDEN = false;
     
     private MatlabProxyFactory proxyFactory;
     private final MatlabProxyFactoryOptions defaultOptions;
