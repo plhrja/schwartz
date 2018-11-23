@@ -1,6 +1,7 @@
 package com.schwartz.matlab;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.n52.matlab.control.MatlabInvocationException;
 import org.n52.matlab.control.MatlabProxy;
 
@@ -13,7 +14,7 @@ import org.n52.matlab.control.MatlabProxy;
  */
 public abstract class AbstractMatlabProxyHandler {
 
-    private static final Logger log = Logger.getLogger(AbstractMatlabProxyHandler.class.getName());
+    private static final Logger log = LogManager.getLogger(AbstractMatlabProxyHandler.class.getName());
 
     /**
      * Initializes and returns a {@link MatlabProxy}.

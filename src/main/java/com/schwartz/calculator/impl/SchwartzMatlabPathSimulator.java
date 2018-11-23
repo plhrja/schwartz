@@ -7,7 +7,8 @@ import com.schwartz.matlab.impl.SchwartzModelDataMapper;
 import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.model.SchwartzSimulatedData;
 import org.apache.commons.lang3.Validate;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.n52.matlab.control.MatlabConnectionException;
 import org.n52.matlab.control.MatlabInvocationException;
 import org.n52.matlab.control.MatlabProxy;
@@ -22,7 +23,7 @@ import org.n52.matlab.control.extensions.MatlabTypeConverter;
  */
 public class SchwartzMatlabPathSimulator extends AbstractCallableSchwartzCalculator<SchwartzSimulatedData> {
     
-    private static final Logger log = Logger.getLogger(SchwartzMatlabPathSimulator.class.getName());
+    private static final Logger log = LogManager.getLogger(SchwartzMatlabPathSimulator.class.getName());
     
     private IMatlabObjectMapper<SchwartzSimulatedData> modelDataMapper;
     private MatlabTypeConverter converter;

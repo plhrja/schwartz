@@ -4,7 +4,8 @@ import com.schwartz.business.ISchwartzCalculatorService;
 import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.model.SchwartzSimulatedData;
 import java.util.concurrent.Callable;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @RestController
 public class SchwartzController {
-    private static final Logger log = Logger.getLogger(SchwartzController.class.getName());
+    private static final Logger log = LogManager.getLogger(SchwartzController.class.getName());
 
     @Autowired
     ISchwartzCalculatorService<SchwartzSimulatedData> schwartzCalculatorService;

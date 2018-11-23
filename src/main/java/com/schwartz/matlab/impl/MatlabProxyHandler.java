@@ -2,7 +2,8 @@ package com.schwartz.matlab.impl;
 
 import com.schwartz.matlab.AbstractMatlabProxyHandler;
 import java.io.File;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.n52.matlab.control.MatlabConnectionException;
 import org.n52.matlab.control.MatlabProxy;
 import org.n52.matlab.control.MatlabProxyFactory;
@@ -24,7 +25,7 @@ import org.n52.matlab.control.MatlabProxyFactoryOptions;
  */
 public class MatlabProxyHandler extends AbstractMatlabProxyHandler {
 
-    private static final Logger log = Logger.getLogger(MatlabProxyHandler.class.getName());
+    private static final Logger log = LogManager.getLogger(MatlabProxyHandler.class.getName());
     
     private static final String MATLAB_STARTDIR = "/var/matlab_startdir/JavaInterface";
     private static final boolean MATLAB_SPLASH_HIDDEN = false;
