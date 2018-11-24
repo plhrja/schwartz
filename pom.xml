@@ -10,6 +10,8 @@
     <properties>
         <java.version>1.10</java.version>
         <mockito.version>[2.0,)</mockito.version>
+        <junit-5.version>[5.3,)</junit-5.version>
+        <surefire-plugin.version>2.22.1</surefire-plugin.version>
     </properties>
 
     <parent>
@@ -90,8 +92,8 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.0.3</version>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-5.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -102,6 +104,28 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <!-- JUnit 5 Support -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit-5.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+                </plugin>
         </plugins>
     </build>
 
