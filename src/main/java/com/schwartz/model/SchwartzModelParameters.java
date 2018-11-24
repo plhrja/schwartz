@@ -1,6 +1,5 @@
 package com.schwartz.model;
 
-import com.schwartz.calculator.ISchwartzCalculator;
 import com.schwartz.matlab.IMatlabConvertable;
 
 /**
@@ -49,8 +48,6 @@ public class SchwartzModelParameters implements IMatlabConvertable {
     private double interest;
     private double rho;
     private double lambda;
-    
-    public SchwartzModelParameters(){}
 
     public SchwartzModelParameters(double mu, double sigmaSpot, double kappa, double alpha, 
             double sigmaConvenienceYield, double interest, double rho, double lambda) {
@@ -65,67 +62,35 @@ public class SchwartzModelParameters implements IMatlabConvertable {
     }
 
     public double getMu() {
-        return mu;
+        return this.mu;
     }
 
     public double getSigmaSpot() {
-        return sigmaSpot;
+        return this.sigmaSpot;
     }
 
     public double getKappa() {
-        return kappa;
+        return this.kappa;
     }
 
     public double getAlpha() {
-        return alpha;
+        return this.alpha;
     }
 
     public double getSigmaConvenienceYield() {
-        return sigmaConvenienceYield;
+        return this.sigmaConvenienceYield;
     }
 
     public double getInterest() {
-        return interest;
+        return this.interest;
     }
 
     public double getRho() {
-        return rho;
+        return this.rho;
     }
 
     public double getLambda() {
-        return lambda;
-    }
-
-    public void setMu(double mu) {
-        this.mu = mu;
-    }
-
-    public void setSigmaSpot(double sigmaSpot) {
-        this.sigmaSpot = sigmaSpot;
-    }
-
-    public void setKappa(double kappa) {
-        this.kappa = kappa;
-    }
-
-    public void setAlpha(double alpha) {
-        this.alpha = alpha;
-    }
-
-    public void setSigmaConvenienceYield(double sigmaConvenienceYield) {
-        this.sigmaConvenienceYield = sigmaConvenienceYield;
-    }
-
-    public void setInterest(double interest) {
-        this.interest = interest;
-    }
-
-    public void setRho(double rho) {
-        this.rho = rho;
-    }
-
-    public void setLambda(double lambda) {
-        this.lambda = lambda;
+        return this.lambda;
     }
 
     @Override

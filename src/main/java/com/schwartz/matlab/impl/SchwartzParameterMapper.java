@@ -1,7 +1,7 @@
 package com.schwartz.matlab.impl;
 
-import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.matlab.IMatlabObjectMapper;
+import com.schwartz.model.SchwartzModelParameters;
 
 /**
  *
@@ -18,7 +18,16 @@ public class SchwartzParameterMapper implements IMatlabObjectMapper<SchwartzMode
         }
         
         double[] val = data[0];
-        return new SchwartzModelParameters(val[0], val[1], val[2], val[3], val[4], val[5], val[6], val[7]);
+        return new SchwartzModelParameters(
+            val[0], 
+            val[1], 
+            val[2], 
+            val[3], 
+            val[4], 
+            val[5], 
+            val[6], 
+            val[7]
+        );
     }
     
 }

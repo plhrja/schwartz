@@ -33,22 +33,27 @@ public class SchwartzMatlabPathSimulator extends AbstractCallableSchwartzCalcula
     private SchwartzModelParameters modelParameters;
     private boolean simulateTermStructure;
 
-    public SchwartzMatlabPathSimulator(MatlabProxy proxy) {
-        Validate.notNull(proxy, "The supplied MatlabProxy was null!");
-        
-        this.proxy = proxy;
-        this.converter = new MatlabTypeConverter(proxy);
-        this.modelDataMapper = new SchwartzModelDataMapper();
-    }
-
-    public SchwartzMatlabPathSimulator(MatlabProxy proxy, double initialSpot, double initialConvenienceYield, 
-            SchwartzModelParameters modelParameters, boolean simulateTermStructure) {
-        this(proxy);
+    public SchwartzMatlabPathSimulator(
+        MatlabProxy proxy, 
+        double initialSpot, 
+        double initialConvenienceYield, 
+        SchwartzModelParameters modelParameters, 
+        boolean simulateTermStructure
+    ) {
+        this.initializeProxy(proxy);
         this.initialSpot = initialSpot;
         this.initialConvenienceYield = initialConvenienceYield;
         this.modelParameters = modelParameters;
         this.simulateTermStructure = simulateTermStructure;
     }
+
+	private void initializeProxy(MatlabProxy proxy) {
+		Validate.notNull(proxy, "The supplied MatlabProxy was null!");
+        
+        this.proxy = proxy;
+        this.converter = new MatlabTypeConverter(proxy);
+        this.modelDataMapper = new SchwartzModelDataMapper();
+	}
     
     @Override
     public SchwartzSimulatedData calculate() {
@@ -62,7 +67,7 @@ public class SchwartzMatlabPathSimulator extends AbstractCallableSchwartzCalcula
                 .append(initialSpot)
                 .append(", ")
                 .append(initialConvenienceYield)
-                                                                        .append(",pstruct, synth_years, dt, ncontracts, false);").toString());
+                .append(",pstruct, synth_years, dt, ncontracts, false);").toString());
             proxy.eval("data = feval('price2array', dates, price, cy, ttm,"  + simulateTermStructure +" );");
             
             return modelDataMapper.map(converter.getNumericArray("data").getRealArray2D());
@@ -77,39 +82,33 @@ public class SchwartzMatlabPathSimulator extends AbstractCallableSchwartzCalcula
         return proxy;
     }
 
-    public void setProxy(MatlabProxy proxy) {
-        this.proxy = proxy;
-        this.converter = new MatlabTypeConverter(proxy);
+    public double getInitialSpot() {
+        return this.initialSpot;
     }
 
-    public void setModelDataMapper(IMatlabObjectMapper<SchwartzSimulatedData> modelDataMapper) {
-        this.modelDataMapper = modelDataMapper;
+    public double getInitialConvenienceYield() {
+        return this.initialConvenienceYield;
     }
 
-    public void setInitialSpot(double initialSpot) {
-        this.initialSpot = initialSpot;
+    public SchwartzModelParameters getModelParameters() {
+        return this.modelParameters;
     }
 
-    public void setInitialConvenienceYield(double initialConvenienceYield) {
-        this.initialConvenienceYield = initialConvenienceYield;
+    public boolean getSimulateTermStructure() {
+        return this.simulateTermStructure;
     }
 
-    public void setModelParameters(SchwartzModelParameters modelParameters) {
-        this.modelParameters = modelParameters;
-    }
-
-    public void setSimulateTermStructure(boolean simulateTermStructure) {
-        this.simulateTermStructure = simulateTermStructure;
-    }
-    
     // Main-method testing.
     public static void main(String[] args) throws MatlabConnectionException {
         MatlabProxy proxy = new MatlabProxyHandler().getMatlabProxy();
-        SchwartzMatlabPathSimulator calc = new SchwartzMatlabPathSimulator(proxy);
-        calc.setInitialSpot(100);
-        calc.setInitialConvenienceYield(0.6);
-        calc.setModelParameters(new SchwartzModelParameters(0, 0.3, 2, -0.1, 0.6, 0.3, 0.6, -0.5));
-        calc.setSimulateTermStructure(true);
+        SchwartzMatlabPathSimulator calc = 
+            new SchwartzMatlabPathSimulator(
+                proxy,
+                100,
+                0.6,
+                new SchwartzModelParameters(0, 0.3, 2, -0.1, 0.6, 0.3, 0.6, -0.5),
+                true
+            );
         SchwartzSimulatedData data = calc.calculate();
         log.info(data);
         proxy.disconnect();

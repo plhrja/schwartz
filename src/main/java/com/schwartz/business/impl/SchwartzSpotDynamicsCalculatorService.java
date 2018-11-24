@@ -1,15 +1,15 @@
 package com.schwartz.business.impl;
 
-import java.util.concurrent.Callable;
-
 import com.schwartz.business.ISchwartzCalculatorService;
 import com.schwartz.calculator.impl.SchwartzMatlabPathSimulator;
-import com.schwartz.model.SchwartzSimulatedData;
-import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.matlab.AbstractMatlabProxyHandler;
 import com.schwartz.matlab.impl.MatlabProxyHandler;
+import com.schwartz.model.SchwartzModelParameters;
+import com.schwartz.model.SchwartzSimulatedData;
+import java.util.concurrent.Callable;
 import org.n52.matlab.control.MatlabProxy;
 import org.springframework.stereotype.Service;
+
 
 /**
  * A service that handles the initiating of {@link MatlabProxy MatlabProxies} to a {@link SchwartzMatlabPathSimulator} instance, and also handles the
@@ -40,7 +40,13 @@ public class SchwartzSpotDynamicsCalculatorService implements ISchwartzCalculato
             proxy = proxyHandler.getMatlabProxy();
         }
 
-		return new SchwartzMatlabPathSimulator(proxy);
+		return new SchwartzMatlabPathSimulator(
+            proxy, 
+            initialSpot, 
+            initialConvenienceYield,
+            modelParameters, 
+            simulateTermStructure
+        );
 	}
 
 }

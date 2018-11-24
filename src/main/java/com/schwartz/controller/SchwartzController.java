@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @RestController
 public class SchwartzController {
-    private static final Logger log = LogManager.getLogger(SchwartzController.class.getName());
+    private final Logger log = LogManager.getLogger(SchwartzController.class.getName());
 
     @Autowired
     ISchwartzCalculatorService<SchwartzSimulatedData> schwartzCalculatorService;
