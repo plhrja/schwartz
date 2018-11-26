@@ -3,7 +3,6 @@ package com.schwartz.controller;
 import com.schwartz.business.ISchwartzCalculatorService;
 import com.schwartz.model.SchwartzModelParameters;
 import com.schwartz.model.SchwartzSimulatedData;
-import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,17 @@ public class SchwartzController {
     @Autowired
     ISchwartzCalculatorService<SchwartzSimulatedData> schwartzCalculatorService;
 
+    /**
+     * TODO: FIXME: Make the interface callable in order not choke up the thread pool. 
+     */
     @RequestMapping(method = GET, path = "paths")
-    public Callable<SchwartzSimulatedData> startSamplePathSimulation(
+    public SchwartzSimulatedData startSamplePathSimulation(
         @ModelAttribute SchwartzModelParameters parameters,
         @RequestParam Double initialSpot, 
         @RequestParam Double initialConvenienceYield
-    ) {
+    ) throws Exception {
         try {
-            return schwartzCalculatorService.run(initialSpot, initialConvenienceYield, parameters, true);
+            return schwartzCalculatorService.run(initialSpot, initialConvenienceYield, parameters, true).call();
         } catch (Exception ex) {
             log.error("Could not intiate the calculation!");
             throw ex;
